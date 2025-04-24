@@ -9,8 +9,7 @@ I imagine this being useful on mods that just wanna stack a bunch of effects on 
 
 As it stands, this will most likely break mods that rely on those hooks. Please report them to me, along with steps to reproduce the bug.
 Here's a list of known baddies that I can't really fix properly:
-
-- VManip - Tries to pass custom data through the nearz argument. Uses it to call other calcview hooks when it's returning, but since I handle it differently, it dies and causes a stack overflow. Gets very easily fixed by replacing the old calcview hooks with the new calcviewex variant, but I'm not gonna maintain the patch lol.
+- Actually none yet!
 
 New classes / metatables:
 ```
