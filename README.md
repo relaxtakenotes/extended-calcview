@@ -1,7 +1,6 @@
 # extended-calcview
  extended calcview waaaaaaaaaaaat
 
-```
 Don't you just hate the traditional calcview hook?.. no? Well I do.
 
 This tool adds two new hooks: CalcViewEx and CalcViewModelViewEx. Both of them provide you with the ability to change given data by calling methods on an object, before CalcView and CalcViewModelView get called respectively.
@@ -36,7 +35,7 @@ New hooks:
 	- CalcViewModelViewEx(VMData data)
 
 Example:
-
+```
 	hook.Add("CalcViewEx", "epic", function(data) 
 		data:SetFOV(data:GetFOV() + 20)
 	end)
@@ -44,5 +43,4 @@ Example:
 	hook.Add("CalcViewModelViewEx", "epic", function(data) 
 		data:SetAngles(Angle(90, 90, 90))
 	end)
-
 ```
