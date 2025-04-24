@@ -192,3 +192,32 @@ hook.Call = function( name, gm, ... )
 
 	return HookCallOriginal( name, gm, ... )
 end
+
+hook.Add( "Initialize", "jeff_the_killer_came_to_me_in_my_sleep_and_said_skibidi_dop_dop_yes_yes", function( )
+	timer.Simple( 1, function( )
+		if !VManip then return end
+
+		local Function = hook.GetTable( )[ "CalcView" ][ "VManip_Cam" ]
+		if ( isfunction( Function ) ) then
+			hook.Remove( "CalcView", "VManip_Cam" )
+
+			hook.Add( "CalcViewEx", "VManip_Cam", function( Data ) 
+			    if ( !VManip:IsActive( ) || !VManip.Attachment ) then 
+			    	return 
+			    end
+
+			    if ( ( Data:GetPlayer( ):GetViewEntity( ) != Data:GetPlayer( ) ) || Data:GetPlayer( ):ShouldDrawLocalPlayer( ) ) then 
+			    	return 
+			    end
+
+			    local Ang = VManip.Attachment.Ang - VManip.Cam_Ang
+
+			    Ang.x = Ang.x * VManip.Cam_AngInt[ 1 ]
+			    Ang.y = Ang.y * VManip.Cam_AngInt[ 2 ]
+			    Ang.z = Ang.z * VManip.Cam_AngInt[ 3 ]
+
+			    Data:GetAngles( ):Add( Ang )
+			end )
+		end
+	end )
+end )
