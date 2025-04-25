@@ -5,8 +5,6 @@ Don't you just hate the traditional calcview hook?.. no? Well I do.
 
 This tool adds two new hooks: CalcViewEx and CalcViewModelViewEx. Both of them provide you with the ability to change given data by calling methods on an object, before CalcView and CalcViewModelView get called respectively.
 
-I imagine this being useful on mods that just wanna stack a bunch of effects on top of the already established view, which is why "Smooth Out Stairs", "Enhanced HL2 Weapons" and "Enhanced Recoil" will eventually be ported to this new system.
-
 As it stands, this will most likely break mods that rely on those hooks. Please report them to me, along with steps to reproduce the bug.
 Here's a list of known baddies that I can't really fix properly:
 - Actually none yet!
