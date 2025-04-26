@@ -94,7 +94,9 @@ hook.Call = function( Name, Gamemode, ... )
 
 		local Result = HookCallOriginal( Name, Gamemode, Player, Origin, Angles, FOV, ZNear, ZFar )
 
-		Result["drawviewer"] = DrawViewer or Result["drawviewer"]
+		if DrawViewer then
+			Result["drawviewer"] = true
+		end
 
 		return Result
 	end
