@@ -87,12 +87,20 @@ local function RunCalcViewModelViewEx( Weapon, Viewmodel, OldPosition, OldAngles
 	return Data:GetWeapon( ), Data:GetViewmodel( ), Data:GetOldPosition( ), Data:GetOldAngles( ), Data:GetPosition( ), Data:GetAngles( )
 end
 
+local CalcViewExCalled = false
+local CalcViewModelViewExCalled = false
+
 local HookCallOriginal = hook.Call
 hook.Call = function( Name, Gamemode, ... )
 	if Name == "CalcView" then
-		local Player, Origin, Angles, FOV, ZNear, ZFar, DrawViewer = RunCalcViewEx( ... )
+		if CalcViewExCalled then
+			return HookCallOriginal( Name, Gamemode, ... )
+		end
 
+		CalcViewExCalled = true
+		local Player, Origin, Angles, FOV, ZNear, ZFar, DrawViewer = RunCalcViewEx( ... )
 		local Result = HookCallOriginal( Name, Gamemode, Player, Origin, Angles, FOV, ZNear, ZFar )
+		CalcViewExCalled = false
 
 		if DrawViewer then
 			Result["drawviewer"] = true
@@ -102,9 +110,16 @@ hook.Call = function( Name, Gamemode, ... )
 	end
 
 	if Name == "CalcViewModelView" then
-		local Weapon, Viewmodel, OldPosition, OldAngles, Position, Angles = RunCalcViewModelViewEx( ... )
+		if CalcViewModelViewExCalled then
+			return HookCallOriginal( Name, Gamemode, ... )
+		end
 
-		return HookCallOriginal( Name, Gamemode, Weapon, Viewmodel, OldPosition, OldAngles, Position, Angles )
+		CalcViewModelViewExCalled = true
+		local Weapon, Viewmodel, OldPosition, OldAngles, Position, Angles = RunCalcViewModelViewEx( ... )
+		local out, out2 = HookCallOriginal( Name, Gamemode, Weapon, Viewmodel, OldPosition, OldAngles, Position, Angles )
+		CalcViewModelViewExCalled = false
+
+		return out, out2
 	end
 
 	return HookCallOriginal( Name, Gamemode, ... )
